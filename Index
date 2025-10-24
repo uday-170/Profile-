@@ -1,0 +1,16 @@
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <main style={{ maxWidth: 760, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
+      <h1>Project Vault</h1>
+      <p>Store your projects, certificates, and resume in one place.</p>
+      <ul>
+        <li><Link href="/api/auth/signin">Sign in</Link></li>
+        <li><Link href="/dashboard">Go to Dashboard</Link></li>
+      </ul>
+      <hr />
+      <p>Developer notes: create an initial user using the included script or Prisma Studio — there is no signup page.</p>
+    </main>
+  );
+}
