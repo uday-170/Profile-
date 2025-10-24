@@ -1,0 +1,16 @@
+html, body, #__next {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111827;
+  background: #ffffff;
+  line-height: 1.5;
+}
+input, button {
+  padding: 8px 10px;
+  margin-right: 8px;
+  font-size: 14px;
+}
+a { color: #0366d6; }
