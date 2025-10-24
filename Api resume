@@ -1,0 +1,29 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../lib/prisma";
+import { getSession } from "next-auth/react";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const session = await getSession({ req });
+  if (!session || !(session as any).user?.id) return res.status(401).json({ error: "Unauthorized" });
+  const userId = Number((session as any).user.id);
+
+  if (req.method === "GET") {
+    const r = await prisma.resume.findUnique({ where: { userId } });
+    return res.json(r);
+  }
+
+  if (req.method === "POST") {
+    const { fileUrl } = req.body;
+    if (!fileUrl) return res.status(400).json({ error: "fileUrl required" });
+    // upsert resume
+    const up = await prisma.resume.upsert({
+      where: { userId },
+      create: { fileUrl, userId },
+      update: { fileUrl }
+    });
+    return res.status(200).json(up);
+  }
+
+  res.setHeader("Allow", ["GET", "POST"]);
+  res.status(405).end();
+}
